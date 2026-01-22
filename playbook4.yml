@@ -1,0 +1,9 @@
+---
+- name: clone remote git repo
+  hosts: all
+  tasks: 
+    - name: clone a repo from github
+      git: 
+        repo: https://github.com/IntelliqDevops/FunctionalTesting.git
+        dest: /tmp/mygit
+...

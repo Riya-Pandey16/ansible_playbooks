@@ -1,0 +1,20 @@
+---
+- name: create users and create files in the users home dir
+  hosts: all
+  tasks: 
+    - name: user creation
+      user: 
+        name: Ravi
+        password: Ravi@
+        uid: 8899
+        shell: /bin/bash
+        comment: "A super user"
+        home: /tmp/Ravi
+    - name: create file in usrrs home dir
+      file: 
+        name: /tmp/Ravi/file1
+        state: touch
+        mode: 750
+        owner: Ravi
+        group: root
+...
