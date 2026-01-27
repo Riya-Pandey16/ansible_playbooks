@@ -1,0 +1,28 @@
+---
+- name: implementing handlers
+  hosts: all
+  tasks:
+    - name: install apache2
+      apt:
+        name: apache2
+        state: present
+        update_cache: no
+      notify: check url response
+    - name: copy customised index.html
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+      notify: Restart apache
+  handlers:
+    - name: Restart apache
+      service:
+        name: apache2
+        state: restarted
+    - name: check url response
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      loop:
+        - http://172.31.25.142
+        - http://172.31.27.52
+...

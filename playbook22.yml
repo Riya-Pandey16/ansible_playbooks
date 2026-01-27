@@ -1,0 +1,25 @@
+---
+- name: installing apache 
+  hosts: all
+  tasks:
+    - name: install apache
+      apt:
+        name: apache2
+        state: present
+        update_cache: no
+    - name: copy customised index.html
+      copy:
+        src: index.html
+        dest: /var/www/html
+    - name: restart apache2
+      service:
+        name: apache2
+        state: restarted
+    - name: check apache2 on all servers
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      with_items:
+        - http://172.31.25.142
+        - http://172.31.27.52
+...
