@@ -1,0 +1,21 @@
+---
+- name: Error handling or Exception Handling
+  hosts: all
+  tasks:
+    - block:
+        - name: install tree using apt on ubuntu servers
+          apt:
+            name: tree
+            state: present
+            update_cache: no
+      rescue:
+        - name: install tree using yum on redhat servers
+          yum:
+            name: tree
+            state: present
+            update_cache: no
+      always:
+         - name: display success msg
+           debug:
+               msg: "tree installation done" 
+...        
