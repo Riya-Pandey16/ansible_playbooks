@@ -1,0 +1,9 @@
+---
+- name: apache32q response on all servers
+  uri:
+    url: "{{item}}"
+    status_code: 200
+  with_items:
+     - http://172.31.25.142
+     - http://172.31.27.52
+...
